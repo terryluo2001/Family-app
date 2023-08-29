@@ -27,17 +27,18 @@ function App() {
             onClick={() => handleMemberClick(member)}
             className="member-button"
           >
-            {member["First Name"]}
+            {member["First Name"] + " " + member["Last Name"]}
           </button>
         ))}
       </div>
       {selectedMember && (
         <div className="member-details">
-          <h2>{selectedMember["First Name"]}</h2>
+          <h2>{selectedMember["First Name"] + " " + selectedMember["Last Name"]}</h2>
+          <p>Identity: {selectedMember["Identity"]}</p>
           <p>Age: {selectedMember["Age"]}</p>
           <p>Gender: {selectedMember["Gender"]}</p>
-          <p>Occupation: {selectedMember["Occupation"]}</p>
           <p>Ethnicity: {selectedMember["Ethnicity"]}</p>
+          <p>Occupation: {selectedMember["Occupation"]}</p>
         </div>
       )}
     </div>
