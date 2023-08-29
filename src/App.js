@@ -1,46 +1,45 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect} from 'react';
 import './App.css';
 function App() {
+  const [searchQuery, setSearchQuery] = useState('');
   const [familyMembers, setFamilyMembers] = useState([]);
-  const [selectedMember, setSelectedMember] = useState(null);
-  
-
   useEffect(() => {
-    // Fetch family members from the backend when the component mounts
-    fetch('http://127.0.0.1:5000/get_family_members')
+    fetch(`http://127.0.0.1:5000/get_family_members?search=${searchQuery}`)
       .then(response => response.json())
-      .then(data => {setFamilyMembers(data); return data;}) 
+      .then(data => setFamilyMembers(data))
       .catch(error => console.error('Error fetching family members:', error));
-  }, []);
-
-  const handleMemberClick = (member) => {
-    setSelectedMember(member);
-  };
-
+  }, [searchQuery]);
   return (
     <div className="App">
       <h1>Family Members</h1>
-      <div className="family-buttons">
-        {familyMembers.map(member => (
-          <button
-            key={member.id}
-            onClick={() => handleMemberClick(member)}
-            className="member-button"
+      <div className="search-function">  
+      <input
+        type="text"
+        placeholder="Search for family member..."
+        value={searchQuery}
+        onChange={(e) => setSearchQuery(e.target.value)}
+        className='search-bar'
+      />
+        <button 
+            onClick={() => setSearchQuery('')}
+            className='delete-search'
           >
-            {member["First Name"] + " " + member["Last Name"]}
-          </button>
-        ))}
-      </div>
-      {selectedMember && (
-        <div className="member-details">
-          <h2>{selectedMember["First Name"] + " " + selectedMember["Last Name"]}</h2>
-          <p>Identity: {selectedMember["Identity"]}</p>
-          <p>Age: {selectedMember["Age"]}</p>
-          <p>Gender: {selectedMember["Gender"]}</p>
-          <p>Ethnicity: {selectedMember["Ethnicity"]}</p>
-          <p>Occupation: {selectedMember["Occupation"]}</p>
+              Clear Search
+        </button>
+        <div className="search-results">
+        {familyMembers
+          .map(Member => (
+            <div key={Member.id}>
+              <h2>{Member["First Name"] + " " + Member["Last Name"]}</h2>
+              <p>Identity: {Member["Identity"]}</p>
+              <p>Age: {Member["Age"]}</p>
+              <p>Gender: {Member["Gender"]}</p>
+              <p>Ethnicity: {Member["Ethnicity"]}</p>
+              <p>Occupation: {Member["Occupation"]}</p>
+            </div>
+            ))}
         </div>
-      )}
+      </div>
     </div>
   );
 }
