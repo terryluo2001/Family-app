@@ -1,3 +1,7 @@
+# What did I make?
+
+A frontend application which calls a backend which fetches an SQL database to print out my family details.
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).

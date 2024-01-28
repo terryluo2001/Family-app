@@ -8,9 +8,13 @@
   align-items: center;
   margin-top: 20px;
 }
-.delete-search {
+.search-results {
   display: flex;
-  flex-direction: column;
-  align-items: center;
-  margin-top: 10px;
+  flex-direction: column; 
+}
+.recommendations {
+  padding: 10px;
+  border: 1px solid #ccc;
+  /* Set line-height to match the search bar input height */
+  line-height: 0.5em; /* Adjust the value as needed */
 }
